@@ -54,3 +54,5 @@ Route::get('/detail/{id}', [\App\Http\Controllers\SanPhamCTController::class, 's
 Route::get('sreach',[\App\Http\Controllers\client\HomeController::class,'sreachSP'])->name('sreach');
 Route::post('giohang',[\App\Http\Controllers\client\GioHangController::class,'addGioHang'])->name('giohang');
 Route::get('showgiohang',[\App\Http\Controllers\client\GioHangController::class,'showGioHang'])->name('showgiohang');
+Route::get('del/{id}',[\App\Http\Controllers\client\GioHangController::class,'delGioHang'])->name('delgiohang');
+//Route::get('',[\App\Http\Controllers\client\GioHangController::class,'countGioHang'])->name('countgiohang');

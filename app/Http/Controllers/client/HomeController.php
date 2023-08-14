@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Models\GiohangModel;
 use App\Models\LoaiModel;
 use App\Models\SanPhamModel;
 use App\Models\SettingModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +19,7 @@ class HomeController extends Controller
         $banner = DB::table('setting')->select('imagebanner')->get();
         $loai = LoaiModel::all();
         $sp = SanPhamModel::paginate(9);
+
         return view('cleint.sanpham',compact('banner','loai','sp'));
     }
     public function showDM($id){

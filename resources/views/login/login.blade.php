@@ -16,6 +16,11 @@
 </head>
   <body>
         <div class="row">
+            @if(Session('msg'))
+                <div class="alert alert-primary">
+                    {{Session('msg')}}
+                </div>
+            @endif
             <div class="col-4"></div>
             <div class="col-4">
                 <form action="{{route('login')}}" method="POST">
@@ -30,6 +35,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="#">Đăng Ký</a>
                 </form>
             </div>
             <div class="col-4"></div>

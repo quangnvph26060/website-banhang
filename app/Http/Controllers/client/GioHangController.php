@@ -8,23 +8,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use  Illuminate\Support\Facades\Storage;
+
 class GioHangController extends Controller
 {
     // show giỏ hàng
-    public function showGioHang(){
+    public function showGioHang()
+    {
         $userId = Auth::id();
-       $giohang = GiohangModel::where('id_user',$userId)
-           ->join('sanpham','giohang.id_sp','=','sanpham.id')
-           ->select('sanpham.image','sanpham.tensanpham','sanpham.mota','sanpham.gia','giohang.quantity')->get();
-        return view('cleint.giohang',compact('giohang'));
+        $giohang = GiohangModel::where('id_user', $userId)
+            ->join('sanpham', 'giohang.id_sp', '=', 'sanpham.id')
+            ->select('sanpham.image', 'sanpham.tensanpham', 'sanpham.mota', 'sanpham.gia', 'giohang.quantity', 'giohang.id')->get();
+        return view('cleint.giohang', compact('giohang'));
     }
-    public function addGioHang(Request $request){
+
+    public function addGioHang(Request $request)
+    {
         $sanphamID = $request->id_sp;
         $quantity = $request->soluong;
         $userId = Auth::id();
-       if($userId == null){
-           dd('vui lòng đăng ký để thêm sản phẩm vào giỏ hàng');
-       }
+        if ($userId == null) {
+            return redirect()->route('login')->with('msg', 'Vui Lòng đăng nhập để thêm sản phẩm vào giỏ hàng ');
+        }
         // Kiểm tra xem sản phẩm đã có trong giỏ hàng của người dùng hay chưa
         $cartItem = GiohangModel::where('id_sp', $sanphamID)
             ->where('id_user', $userId)
@@ -44,6 +48,22 @@ class GioHangController extends Controller
         }
         // Thông báo thành công và chuyển hướng đến trang giỏ hàng
 
-       return redirect()->route('showgiohang')->with('msg','Thêm Giỏ Hàng Thành Công');
+        return redirect()->route('showgiohang')->with('msg', 'Thêm Giỏ Hàng Thành Công');
+    }
+
+    // xóa ra khỏi giỏ hàng
+    public function delGioHang($id)
+    {
+        $gh = GiohangModel::find($id);
+        if ($gh) {
+            $gh->delete();
+            return redirect()->route('showgiohang')->with('msg', 'Xóa Sản Phẩm Thành Công');
+        }
+    }
+    public function countGioHang(){
+        $userid = Auth::id();
+        $count = GiohangModel::where('id_user',$userid)->count();
+
+        return view('layout.template',compact('count'));
     }
 }
