@@ -42,7 +42,7 @@
                     @endif
 
                     <li class="nav-item">
-                        <a class="nav-link" href="dangnhap.html">Đăng Ký</a>
+                        <a class="nav-link" href="{{route('register')}}">Đăng Ký</a>
 
                     </li>
                     <button type="button" class="btn btn-primary position-relative" style="width: 10%;float: right">

@@ -32,7 +32,7 @@
                         <a class="nav-link" href="{{route('listsp')}}">Quản lý sản phẩm </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Quản Lý Khách Hàng</a>
+                        <a class="nav-link" href="{{route('listuser')}}">Quản Lý Khách Hàng</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Quản Lý Đơn Hàng</a>

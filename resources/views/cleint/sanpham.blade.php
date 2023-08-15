@@ -41,7 +41,7 @@
                         </li>
                     @endif
                     <li class="nav-item">
-                        <a class="nav-link" href="dangnhap.html">Đăng Ký</a>
+                        <a class="nav-link" href="{{route('register')}}">Đăng Ký</a>
                     </li>
                     <a href="{{route('showgiohang')}}"> <button type="button" class="btn btn-danger position-relative" style="width: 10%;float: right">
                            <i class="fas fa-shopping-cart"></i>

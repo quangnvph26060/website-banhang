@@ -42,7 +42,7 @@
                     @endif
 
                     <li class="nav-item">
-                        <a class="nav-link" href="dangnhap.html">Đăng Ký</a>
+                        <a class="nav-link" href="{{route('register')}}">Đăng Ký</a>
 
                     </li>
 
@@ -83,8 +83,9 @@
                                 <p class="card-text"><small class="text-body-secondary">Số
                                         Lượng: {{$spdetail->soluong}}</small></p>
                                 <input type="number" value="1" min="1" name="soluong">
-                                <button type="submit" class="btn btn-primary" style="width: 30%">Đặt Hàng</button>
-                                <button type="submit" class="btn btn-danger" style="width: 30%">Giỏ Hàng</button>
+{{--                                <a href="{{route('showgiohang')}}" class="btn btn-primary" style="width: 30%">Đặt Hàng</a>--}}
+
+                                <button type="submit" class="btn btn-danger" style="width: 30%">Đặt Hàng</button>
                             </div>
                         </div>
                     </div>

@@ -42,7 +42,7 @@
                     @endif
 
                     <li class="nav-item">
-                        <a class="nav-link" href="dangnhap.html">Đăng Ký</a>
+                        <a class="nav-link" href="{{route('register')}}">Đăng Ký</a>
 
                     </li>
 
@@ -118,7 +118,7 @@
         @endforeach
         </tbody>
         <p style="float: right">Tổng Tiền: @php echo number_format($tong )@endphp</p>
-        <a class="btn btn-primary">Đặt Hàng</a>
+        <a class="btn btn-primary" href="{{route('dathang')}}">Đặt Hàng</a>
         <br>
     @endif
 

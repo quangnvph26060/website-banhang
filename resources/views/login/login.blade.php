@@ -35,7 +35,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="#">Đăng Ký</a>
+                    <a href="{{route('register')}}">Đăng Ký</a>
                 </form>
             </div>
             <div class="col-4"></div>

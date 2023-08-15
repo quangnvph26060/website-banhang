@@ -44,7 +44,8 @@ class GioHangController extends Controller
             $cartItem->id_sp = $sanphamID;
             $cartItem->quantity = $quantity;
             $cartItem->id_user = $userId;
-            $cartItem->save();
+            $cart=   $cartItem->save();
+//            session()->put('cart_items', $cart);
         }
         // Thông báo thành công và chuyển hướng đến trang giỏ hàng
 

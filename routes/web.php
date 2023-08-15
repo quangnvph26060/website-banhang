@@ -33,11 +33,15 @@ Route::middleware('auth')->group(function (){
         Route::match(['POST', 'GET'], 'edit/{id}', [\App\Http\Controllers\Admin\SanPhamAdminController::class, 'editSanPham'])->name('editsanpham');
         Route::get('/del/{id}', [\App\Http\Controllers\Admin\SanPhamAdminController::class, 'delSanPham'])->name('delsanpham');
     });
+    // banner
     Route::prefix('banner')->group(function () {
         Route::get('/list', [\App\Http\Controllers\Admin\SettingController::class, 'showBanner'])->name('list');
         Route::match(['POST', 'GET'], '/add', [\App\Http\Controllers\Admin\SettingController::class, 'addBanner'])->name('addbanner');
         Route::match(['POST', 'GET'], '/edit/{id}', [\App\Http\Controllers\Admin\SettingController::class, 'editBanner'])->name('editbanner');
     });
+    // user
+    Route::get('list',[\App\Http\Controllers\Admin\UserController::class,'listUser'])->name('listuser');
+    Route::match(['POST','GET'],'editUser/{id}',[\App\Http\Controllers\Admin\UserController::class,'editUser'])->name('edituser');
 });
 
 
@@ -56,3 +60,5 @@ Route::post('giohang',[\App\Http\Controllers\client\GioHangController::class,'ad
 Route::get('showgiohang',[\App\Http\Controllers\client\GioHangController::class,'showGioHang'])->name('showgiohang');
 Route::get('del/{id}',[\App\Http\Controllers\client\GioHangController::class,'delGioHang'])->name('delgiohang');
 //Route::get('',[\App\Http\Controllers\client\GioHangController::class,'countGioHang'])->name('countgiohang');
+Route::match(['POST','GET'],'register',[\App\Http\Controllers\login\LoginController::class,'register'])->name('register');
+Route::get('dathang',[\App\Http\Controllers\client\DatHangController::class,'showdathang'])->name('dathang');

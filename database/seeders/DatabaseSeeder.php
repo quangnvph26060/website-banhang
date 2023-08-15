@@ -29,6 +29,8 @@ class DatabaseSeeder extends Seeder
             KhachHangSeeder::class,
             UserSeeder::class,
             GioHangSeeder::class,
+            OderSeeder::class,
+            OderItemSeeder::class,
         ]);
     }
 }
