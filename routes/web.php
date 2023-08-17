@@ -17,7 +17,7 @@ Route::match(['POST', 'GET'], '/login', [\App\Http\Controllers\login\LoginContro
 Route::get('GET',[\App\Http\Controllers\login\LoginController::class,'logout'])->name('logout');
 // Amdin
 Route::middleware('auth')->group(function (){
-    Route::prefix('category')->group(function () {
+    Route::middleware('check.role')->prefix('category')->group(function () {
         Route::get('/list', [\App\Http\Controllers\Admin\LoaiAdminController::class, 'showLoai'])->name('danhsach');
         Route::match(['POST', 'GET'],
             '/add', [\App\Http\Controllers\Admin\LoaiAdminController::class, 'addLoai'])->name('addloai');
@@ -27,21 +27,24 @@ Route::middleware('auth')->group(function (){
         Route::get('sreach', [\App\Http\Controllers\Admin\LoaiAdminController::class, 'sreachLoai'])->name('sreachloai');
     });
 // admin sản phẩm
-    Route::prefix('product')->group(function () {
+    Route::middleware('check.role')->prefix('product')->group(function () {
         Route::get('/', [\App\Http\Controllers\Admin\SanPhamAdminController::class, 'showProduct'])->name('listsp');
         Route::match(['POST', 'GET'], 'add', [\App\Http\Controllers\Admin\SanPhamAdminController::class, 'addSanPham'])->name('addsanpham');
         Route::match(['POST', 'GET'], 'edit/{id}', [\App\Http\Controllers\Admin\SanPhamAdminController::class, 'editSanPham'])->name('editsanpham');
         Route::get('/del/{id}', [\App\Http\Controllers\Admin\SanPhamAdminController::class, 'delSanPham'])->name('delsanpham');
     });
     // banner
-    Route::prefix('banner')->group(function () {
+    Route::middleware('check.role')->prefix('banner')->group(function () {
         Route::get('/list', [\App\Http\Controllers\Admin\SettingController::class, 'showBanner'])->name('list');
         Route::match(['POST', 'GET'], '/add', [\App\Http\Controllers\Admin\SettingController::class, 'addBanner'])->name('addbanner');
         Route::match(['POST', 'GET'], '/edit/{id}', [\App\Http\Controllers\Admin\SettingController::class, 'editBanner'])->name('editbanner');
     });
     // user
-    Route::get('list',[\App\Http\Controllers\Admin\UserController::class,'listUser'])->name('listuser');
-    Route::match(['POST','GET'],'editUser/{id}',[\App\Http\Controllers\Admin\UserController::class,'editUser'])->name('edituser');
+    Route::middleware('check.role')->get('list',[\App\Http\Controllers\Admin\UserController::class,'listUser'])->name('listuser');
+    Route::middleware('check.role')->match(['POST','GET'],'editUser/{id}',[\App\Http\Controllers\Admin\UserController::class,'editUser'])->name('edituser');
+    // don hang
+    Route::middleware('check.role')->get('cart',[\App\Http\Controllers\Admin\DonHangAdminController::class,'showCart'])->name('donhang');
+    Route::middleware('check.role')->match(['POST','GET'],'edit/{id}',[\App\Http\Controllers\Admin\DonHangAdminController::class,'editdonhang'])->name('editdh');
 });
 
 
@@ -62,3 +65,7 @@ Route::get('del/{id}',[\App\Http\Controllers\client\GioHangController::class,'de
 //Route::get('',[\App\Http\Controllers\client\GioHangController::class,'countGioHang'])->name('countgiohang');
 Route::match(['POST','GET'],'register',[\App\Http\Controllers\login\LoginController::class,'register'])->name('register');
 Route::get('dathang',[\App\Http\Controllers\client\DatHangController::class,'showdathang'])->name('dathang');
+Route::get('order',[\App\Http\Controllers\client\DatHangController::class,'OrderDetail'])->name('order');
+// theo dõi đơn hàng
+Route::get('thongtinuser',[\App\Http\Controllers\client\DonHangController::class,'DonHangDetail'])->name('thongtinuser');
+Route::get('userdetail',[\App\Http\Controllers\client\DonHangController::class,'userDetail'])->name('userdetail');

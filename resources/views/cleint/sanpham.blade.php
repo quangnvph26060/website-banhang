@@ -27,14 +27,11 @@
                     </li>
                     {{--                    Kiểm tra xem người dùng có đăng nhập hay không --}}
                     @if(auth()->check())
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('logout')}}">Đăng Xuất</a>
-                        </li>
-                        @if(auth()->user()->role  == 1)
+
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('danhsach')}}">Quản trị</a>
+                                <a class="nav-link" href="{{route('thongtinuser')}}">Chào,{{auth()->user()->name}}</a>
                             </li>
-                        @endif
+
                     @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('login')}}">Đăng nhập</a>

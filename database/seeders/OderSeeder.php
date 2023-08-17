@@ -18,6 +18,7 @@ class OderSeeder extends Seeder
 
            'id_user'=>2,
             'ngaydat'=>'2023-08-15 08:19:13',
+            'payment'=>0,
             'status'=>1,
         ]);
     }

@@ -1,5 +1,6 @@
 @extends('layout.template')
 @section('content')
+    @section('title','Giỏ Hàng')
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: white !important;">
         <div class="container">
             <!-- Logo -->
@@ -27,14 +28,11 @@
                     </li>
                     {{--                    Kiểm tra xem người dùng có đăng nhập hay không --}}
                     @if(auth()->check())
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('logout')}}">Đăng Xuất</a>
-                        </li>
-                        @if(auth()->user()->role  == 1)
+
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('danhsach')}}">Quản trị</a>
+                                <a class="nav-link" href="{{route('thongtinuser')}}">Chào,{{auth()->user()->name}}</a>
                             </li>
-                        @endif
+
                     @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('login')}}">Đăng nhập</a>
@@ -118,7 +116,7 @@
         @endforeach
         </tbody>
         <p style="float: right">Tổng Tiền: @php echo number_format($tong )@endphp</p>
-        <a class="btn btn-primary" href="{{route('dathang')}}">Đặt Hàng</a>
+        <a class="btn btn-primary" href="{{route('order')}}">Đặt Hàng</a>
         <br>
     @endif
 

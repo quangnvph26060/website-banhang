@@ -16,14 +16,10 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->check()){
             if(auth()->user()->role == 1){
-//                   echo  $request->is('category/*') ? true : false ;
+                return $next($request);
             }else{
                 return redirect()->route('/');
             }
-        }
-
-        return $next($request);
     }
 }

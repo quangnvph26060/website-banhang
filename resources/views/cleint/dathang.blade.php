@@ -76,47 +76,46 @@
                 <label for="exampleInputPassword1" class="form-label">Số điện thoại</label>
                 <input type="text"  name="sdt" value=" {{auth()->user()->sdt}}"class="form-control" id="exampleInputPassword1">
             </div>
-            <div class="mb-3">
+            <form action="{{route('dathang')}}" method="POST">
+                @method('GET')
+                @csrf
+                <div class="mb-3">
+                    <input type="radio"  name="payment" value="Thanh Toán Khi nhận hàng" checked> Thanh Toán Khi nhận hàng
+                </div>
 
-                <input type="radio"  name="pttt" value="1" checked> Thanh Toán Khi nhận hàng
-            </div>
-            <div class="mb-3">
+                <div class="mb-3">
 
-                <input type="radio"  name="pttt" value="2"> Chuyền Khoản MOMO
-            </div>
-            <div class="mb-3">
+                    <a class="btn btn-primary" href="{{route('dathang')}}"> Đặt Hàng</a>
+                </div>
+            </form>
 
-               <button type="submit" class="btn btn-primary">Đặt Hàng</button>
-            </div>
         </div>
         <div class="col-6">
             <div class="card-group">
-                <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                @php
+                    $tongtien = 0;
+                $tong =0;
+                @endphp
+                @foreach($dathang as $item)
+                    <div class="card">
+                        <img src="{{$item->image ? Storage::url($item->image):""}}"
+                             class="img-fluid rounded-start" alt="..." width="30%">
+                        <div class="card-body">
+                            <h5 class="card-title">{{$item->tensanpham}}</h5>
+                            <p class="card-text">{{$item->mota}}</p>
+                            <p class="card-text"><small
+                                    class="text-body-secondary">{{number_format($item->gia)}} đ</small></p>
+                            <p class="card-text"><small class="text-body-secondary">Số
+                                    Lượng:{{$item->quantity}}</small></p>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
+                    @php  $tongtien= $item->quantity*$item->gia;
+
+                                        $tong +=$tongtien;
+                    @endphp
+                @endforeach
             </div>
-            <p>Tổng Tiền:</p>
+            <p>Tổng Tiền: @php echo number_format($tong ) .'đ'@endphp</p>
         </div>
 
     </div>

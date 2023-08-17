@@ -35,13 +35,13 @@
                         <a class="nav-link" href="{{route('listuser')}}">Quản Lý Khách Hàng</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Quản Lý Đơn Hàng</a>
+                        <a class="nav-link" href="{{route('donhang')}}">Quản Lý Đơn Hàng</a>
                     </li>
 
 
                 </ul>
                 <li class="nav-item" id="trangchu" style="text-decoration: none;display: inline-block">
-                   <span>Chào; {{auth()->user()->name ? auth()->user()->name:" user"}}</span> / <a class="nav-link" href="{{route('logout')}}">Thoát Admin</a>
+                   <span>Chào; {{auth()->user()->name ? auth()->user()->name:" user"}}</span> / <a class="nav-link" href="{{route('/')}}">Thoát Admin</a>
                 </li>
             </div>
         </div>

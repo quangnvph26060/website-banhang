@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_user')->constrained('users');
             $table->date('ngaydat');
+            $table->tinyInteger('payment')->default(0);
             $table->string('status');
+
             $table->timestamps();
         });
     }
