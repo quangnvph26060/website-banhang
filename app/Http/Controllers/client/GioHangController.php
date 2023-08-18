@@ -27,13 +27,14 @@ class GioHangController extends Controller
         $sanphamID = $request->id_sp;
         $quantity = $request->soluong;
         $userId = Auth::id();
+        // nếu không chưa đăng nhập thì phải đăng nhập
         if ($userId == null) {
             return redirect()->route('login')->with('msg', 'Vui Lòng đăng nhập để thêm sản phẩm vào giỏ hàng ');
         }
         // Kiểm tra xem sản phẩm đã có trong giỏ hàng của người dùng hay chưa
         $cartItem = GiohangModel::where('id_sp', $sanphamID)
             ->where('id_user', $userId)
-            ->first();
+            ->first(); // lấy ra bản ghi đó sau đó nếu có trong giỏ hảng rồi thì ta cộng số lượng lên
 
         if ($cartItem) {
             // Nếu sản phẩm đã có trong giỏ hàng, cập nhật số lượng
@@ -62,6 +63,7 @@ class GioHangController extends Controller
             return redirect()->route('showgiohang')->with('msg', 'Xóa Sản Phẩm Thành Công');
         }
     }
+    // đếm xem tài khoản này có bao nhiêu đơn hàng  chưa dùng tới countGioHang()
     public function countGioHang(){
         $userid = Auth::id();
         $count = GiohangModel::where('id_user',$userid)->count();

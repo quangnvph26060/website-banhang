@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\login;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,7 @@ use Illuminate\Database\Schema;
 class LoginController extends Controller
 {
     // login
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         if ($request->isMethod('POST')) {
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {

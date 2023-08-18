@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\OrderModel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,3 +70,6 @@ Route::get('order',[\App\Http\Controllers\client\DatHangController::class,'Order
 // theo dõi đơn hàng
 Route::get('thongtinuser',[\App\Http\Controllers\client\DonHangController::class,'DonHangDetail'])->name('thongtinuser');
 Route::get('userdetail',[\App\Http\Controllers\client\DonHangController::class,'userDetail'])->name('userdetail');
+// xóa đơn hàng khi chưa xác nhận
+Route::get('delDonHang/{id}',[\App\Http\Controllers\client\DonHangController::class,'delDonHang'])->name('deldh');
+

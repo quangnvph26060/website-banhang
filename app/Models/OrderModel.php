@@ -10,11 +10,13 @@ class OrderModel extends Model
     use HasFactory;
     protected $table = 'orders';
     protected $fillable = [
+
         'id_user',
         'ngaydat',
         'payment',
         'status',
 
     ];
+
 
 }

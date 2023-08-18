@@ -54,7 +54,7 @@
                 </label>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-
+            <a href="{{route('login')}}">Đăng Nhập</a>
         </form>
     </div>
     <div class="col-4"></div>
