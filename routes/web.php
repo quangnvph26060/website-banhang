@@ -72,4 +72,8 @@ Route::get('thongtinuser',[\App\Http\Controllers\client\DonHangController::class
 Route::get('userdetail',[\App\Http\Controllers\client\DonHangController::class,'userDetail'])->name('userdetail');
 // xóa đơn hàng khi chưa xác nhận
 Route::get('delDonHang/{id}',[\App\Http\Controllers\client\DonHangController::class,'delDonHang'])->name('deldh');
-
+// cập nhật user bên client
+// cập nhật tên ,địa chỉ , sdt
+Route::post('/username',[\App\Http\Controllers\client\UserController::class,'UpdateNameUser'])->name('username');
+Route::post('/address',[\App\Http\Controllers\client\UserController::class,'UpdateAddress'])->name('address');
+Route::post('/phone',[\App\Http\Controllers\client\UserController::class,'UpdatePhone'])->name('phone');

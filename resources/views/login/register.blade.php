@@ -16,30 +16,42 @@
 </head>
 <body>
 <div class="row">
-    @if(Session('msg'))
-        <div class="alert alert-primary">
-            {{Session('msg')}}
-        </div>
-    @endif
+
     <div class="col-4"></div>
     <div class="col-4">
         <form action="" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">User Name </label>
-                <input type="text" name="name" value="{{old('email')}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="text" name="name" value="{{old('name')}}" class="form-control"
+                       id="exampleInputEmail1" aria-describedby="emailHelp">
+                    @error('name')
+                <p>{{$message}}</p>
+                    @enderror
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email </label>
-                <input type="email" name="email" value="{{old('email')}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="email" name="email" value="{{old('email')}}"
+                       class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                @error('email')
+                <p>{{$message}}</p>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password"  name="password" value="{{old('password')}} "class="form-control" id="exampleInputPassword1">
+                <input type="password"  name="password" value=""
+                       class="form-control" id="exampleInputPassword1">
+                @error('password')
+                <p>{{$message}}</p>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Enter the password</label>
-                <input type="password"  name="enterpassword" value="{{old('enterpassword')}} "class="form-control" id="exampleInputPassword1">
+                <input type="password"  name="enterpassword"
+                       value=""class="form-control" id="exampleInputPassword1">
+               @if(Session('msg'))
+                    <p>{{Session('msg')}}</p>
+               @endif
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="gender"  value="1" id="flexRadioDefault1">
@@ -53,6 +65,9 @@
                     Female
                 </label>
             </div>
+            @error('gender')
+            <p>{{$message}}</p>
+            @enderror
             <button type="submit" class="btn btn-primary">Submit</button>
             <a href="{{route('login')}}">Đăng Nhập</a>
         </form>

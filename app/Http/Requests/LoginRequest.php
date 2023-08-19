@@ -31,6 +31,17 @@ class LoginRequest extends FormRequest
                             'password' => 'required',
                             'email' => 'required',
                         ];
+                        break;
+                    case 'register':
+                        $rules = [
+                            'name' => 'required',
+                            'email' => 'required|unique:users,email', // unique:users,email là chỉ có 1 email
+                            // duy nhất trong bảng users  không được trùng email
+                            'password' => 'required',
+                            'enterpassword' => 'required',
+                            'gender' => 'required',
+                        ];
+                        break;
                 }
                 break;
             default:
@@ -38,11 +49,17 @@ class LoginRequest extends FormRequest
         }
         return $rules;
     }
+
     public function messages()
     {
         return [
-            'email.required'=>'Vui Lòng Nhập Email',
-            'password.required'=>'Vui lòng nhập mật khẩu',
+            'email.required' => 'Vui Lòng Nhập Email',
+            'email.unique' => 'Email đã được đăng ký',
+            'password.required' => 'Vui lòng nhập mật khẩu',
+            'name.required'=>'Thông tin không được bỏ trống',
+            'enterpassword.required'=>'Thông tin không được bỏ trống',
+            'gender.required'=>'Thông tin không được bỏ trống',
+
         ];
     }
 }

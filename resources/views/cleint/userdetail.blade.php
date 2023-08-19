@@ -1,4 +1,3 @@
-
 @extends('layout.template')
 @section('content')
     @section('title','Theo dõi đơn hàng')
@@ -45,13 +44,16 @@
 
                     </li>
 
-                    <a href="{{route('showgiohang')}}"> <button type="button" class="btn btn-danger position-relative" style="width: 10%;float: right">
+                    <a href="{{route('showgiohang')}}">
+                        <button type="button" class="btn btn-danger position-relative" style="width: 10%;float: right">
                             <i class="fas fa-shopping-cart"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
 
     <span class="visually-hidden">unread messages</span>
   </span>
-                        </button></a>
+                        </button>
+                    </a>
                 </ul>
             </div>
         </div>
@@ -63,7 +65,7 @@
         <div class="col-4">
             <ul class="list-group">
                 <li class="list-group-item">
-                    <a class="nav-link"href="{{route('userdetail')}}">Thông tin cá nhân</a>
+                    <a class="nav-link" href="{{route('userdetail')}}">Thông tin cá nhân</a>
                 </li>
                 @if(auth()->check())
 
@@ -83,19 +85,44 @@
 
         </div>
         <div class="col-8">
-            <form>
-             <div class="row">
-                 <span>  Họ tên: {{auth()->user()->name}} <a  style="margin-left: 40px; color: gray;font-size: 15px" href="#">Thay đổi</a></span>
-             </div>
-                <div class="row">
-                    <span> Địa Chỉ: {{auth()->user()->diachi}} <a  style="margin-left: 40px; color: gray;font-size: 15px" href="#">Thay đổi</a></span>
+            <div class="row">
+                 <span>  Họ tên: {{auth()->user()->name}}
+                    <button type="button" id="btn">edit</button>
+                        <div class="update">
+                            <form method="POST" action="{{route('username')}}">
+                                @csrf
+                                <input type="text" name="name" value="{{auth()->user()->name}}">
+                               <button type="submit" >Save</button>
+                            </form>
+                        </div>
+                     </span>
+            </div>
+            <div class="row">
+                    <span> Địa Chỉ: {{auth()->user()->diachi == 0 ? "" :auth()->user()->diachi }}
+                        <button type="button" id="btn1">edit</button>
+                         <div class="update1">
+                            <form method="POST" action="{{route('address')}}">
+                                @csrf
+                                <input type="text" name="diachi" value="{{auth()->user()->diachi}}">
+                               <button type="submit" >Save</button>
+                            </form>
+                        </div>
+                    </span>
+            </div>
+            <div class="row">
+                    <span>  Số Điện Thoại: {{auth()->user()->sdt == 0 ? "":auth()->user()->sdt }}
+                <button type="button" id="btn2">edit</button>
+                <div class="update2">
+                    <form method="POST" action="{{route('phone')}}">
+                        @csrf
+                        <input type="text" name="sdt" value="{{auth()->user()->sdt}}">
+                        <button type="submit">Save</button>
+                    </form>
                 </div>
-                <div class="row">
-                    <span>  Số Điện Thoại: {{auth()->user()->sdt}} <a  style="margin-left: 40px; color: gray;font-size: 15px" href="#">Thay đổi</a></span>
-                </div>
+                    </span>
+            </div>
 
-                <button type="submit" class="btn btn-success">Cập Nhật</button>
-            </form>
+
         </div>
 
     </div>
@@ -103,4 +130,32 @@
     <br>
 
 
+
+    <style>
+        /*ẩn form thay đổi đi*/
+        .update,.update1 , .update2 {
+            display: none;
+        }
+        #btn,#btn1,#btn2 {
+            background: white;
+            border-color: white;
+        }
+    </style>
+    <script>
+        // tên
+        document.querySelector('#btn').addEventListener('click', function () {
+            // classList.remove xóa class update đi để hiển thị form thay đổi ra trong js
+            document.querySelector('.update').classList.remove('update');
+        });
+        // địa chỉ
+        document.querySelector('#btn1').addEventListener('click', function () {
+            // classList.remove xóa class update đi để hiển thị form thay đổi ra trong js
+            document.querySelector('.update1').classList.remove('update1');
+        });
+        // sdt
+        document.querySelector('#btn2').addEventListener('click', function () {
+            // classList.remove xóa class update đi để hiển thị form thay đổi ra trong js
+            document.querySelector('.update2').classList.remove('update2');
+        });
+    </script>
 @endsection

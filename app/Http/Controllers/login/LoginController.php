@@ -33,13 +33,13 @@ class LoginController extends Controller
     }
 
     // register
-    public function register(Request $request)
+    public function register(LoginRequest $request)
     {
         if ($request->isMethod('POST')) {
             $gioitinh = $request->gender;
             $name = $request->name;
             $email = $request->email;
-            $password = bcrypt($request->password);
+            $password = $request->password;
             $currentDateTime = Date::now();
             $sqlFormattedDateTime = $currentDateTime->toDateTimeString();
             if ($request->password == $request->enterpassword) {
@@ -49,17 +49,18 @@ class LoginController extends Controller
                     'diachi'=>0,
                     'gioitinh'=>$gioitinh,
                     'email'=>$email,
-                    'password'=>$password,
-                    'email_verified_at'=>$sqlFormattedDateTime,
+                    'password'=>bcrypt($password),
+                    'email_verified_at'=>$sqlFormattedDateTime, //được sử dụng để đánh dấu xác nhận của người dùng với địa chỉ email của họ
 
 
                 ]);
                 if ($result) {
                     return redirect()->route('login')->with('msg', 'Đăng nhập để mua hàng ');
                 }
-            } else {
-//                return redirect()->route('register')->with('msg', 'Mật Khẩu không chính xác');
+            }else{
+                return back()->withInput()->with('msg', 'Mật khẩu không trùng khớp');
             }
+
 
         }
         return view('login.register');
