@@ -125,11 +125,8 @@
                 </form>
                 <script>
                     function submitform(){
-
                        document.getElementById('myform').submit();
-
                     }
-
                 </script>
             </div>
         </div>

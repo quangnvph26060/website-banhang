@@ -34,14 +34,15 @@ return [
     */
 
     'mailers' => [
+        // cấu hình mail đại diện để gửi
         'smtp' => [
             'transport' => 'smtp',
             'url' => env('MAIL_URL'),
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'host' => 'smtp.gmail.com', // gmail cuả google
+            'port' => 587,
+            'encryption' => 'tls',
+            'username' => 'quangnvph26060@fpt.edu.vn', // mail đại diện
+            'password' => 'adeeicksfgfirldb', // mật khẩu là xác minh 2 bước của mail đại diện
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
@@ -97,10 +98,10 @@ return [
     | used globally for all e-mails that are sent by your application.
     |
     */
-
+    // địa chỉ người nhận và tiêu đề mail
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => 'quang3011003@gmail.com', // địa chỉ người nhậns
+        'name' => 'Welcome Website Me', // title mail
     ],
 
     /*

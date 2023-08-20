@@ -23,6 +23,11 @@
             @endif
             <div class="col-4"></div>
             <div class="col-4">
+                @if(Session('error'))
+                    <div class="alert alert-danger">
+                        {{Session('error')}}
+                    </div>
+                @endif
                 <form action="{{route('login')}}" method="POST">
                     @csrf
                     <div class="mb-3">

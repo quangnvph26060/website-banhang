@@ -78,3 +78,7 @@ Route::post('/username',[\App\Http\Controllers\client\UserController::class,'Upd
 Route::post('/address',[\App\Http\Controllers\client\UserController::class,'UpdateAddress'])->name('address');
 Route::post('/phone',[\App\Http\Controllers\client\UserController::class,'UpdatePhone'])->name('phone');
 Route::post('/xapsep',[\App\Http\Controllers\XapSepSanPhamController::class,'XapSepSanPham'])->name('xapsepsanpham');
+
+
+// test mail
+//Route::get('mail',[\App\Http\Controllers\client\HomeController::class,'testMail']);
