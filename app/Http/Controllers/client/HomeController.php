@@ -23,7 +23,7 @@ class HomeController extends Controller
         return view('cleint.sanpham',compact('banner','loai','sp'));
     }
     public function showDM($id){
-        $sp = SanPhamModel::where('id_loai',$id)->get(); // show all theo loại
+        $sp = SanPhamModel::where('id_loai',$id)->paginate(9); // show all theo loại
         $count = SanPhamModel::where('id_loai',$id)->get()->count();
         if($sp){
             Session::flash('alert','Có '.$count.' Sản Phẩm');
@@ -37,7 +37,7 @@ class HomeController extends Controller
         $banner = DB::table('setting')->select('imagebanner')->get();
         $loai = LoaiModel::all();
             if(!empty($request->inputsreach) && $request->post()){
-                $sp = SanPhamModel::where('tensanpham','like','%'.$request->inputsreach.'%')->get();
+                $sp = SanPhamModel::where('tensanpham','like','%'.$request->inputsreach.'%')->paginate(9);
                return view('cleint.sanpham',compact('sp','banner','loai'));
             }else{
 

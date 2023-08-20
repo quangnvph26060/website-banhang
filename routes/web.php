@@ -77,3 +77,4 @@ Route::get('delDonHang/{id}',[\App\Http\Controllers\client\DonHangController::cl
 Route::post('/username',[\App\Http\Controllers\client\UserController::class,'UpdateNameUser'])->name('username');
 Route::post('/address',[\App\Http\Controllers\client\UserController::class,'UpdateAddress'])->name('address');
 Route::post('/phone',[\App\Http\Controllers\client\UserController::class,'UpdatePhone'])->name('phone');
+Route::post('/xapsep',[\App\Http\Controllers\XapSepSanPhamController::class,'XapSepSanPham'])->name('xapsepsanpham');

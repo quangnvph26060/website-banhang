@@ -28,9 +28,9 @@
                     {{--                    Kiểm tra xem người dùng có đăng nhập hay không --}}
                     @if(auth()->check())
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('thongtinuser')}}">Chào,{{auth()->user()->name}}</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('thongtinuser')}}">Chào,{{auth()->user()->name}}</a>
+                        </li>
 
                     @else
                         <li class="nav-item">
@@ -40,13 +40,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('register')}}">Đăng Ký</a>
                     </li>
-                    <a href="{{route('showgiohang')}}"> <button type="button" class="btn btn-danger position-relative" style="width: 10%;float: right">
-                           <i class="fas fa-shopping-cart"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    <a href="{{route('showgiohang')}}">
+                        <button type="button" class="btn btn-danger position-relative" style="width: 10%;float: right">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
 
     <span class="visually-hidden">unread messages</span>
   </span>
-                        </button></a>
+                        </button>
+                    </a>
                 </ul>
             </div>
         </div>
@@ -83,11 +86,11 @@
                         @endforeach
                     </div>
                 </div>
-                {{--                <nav aria-label="...">--}}
-                {{--                    <ul class="pagination pagination-lg">--}}
-                {{--                        {{ $sp->links('pagination::default') }}--}}
-                {{--                    </ul>--}}
-                {{--                </nav>--}}
+                <nav aria-label="...">
+                    <ul class="pagination pagination-lg">
+                        {{ $sp->links('pagination::default') }}
+                    </ul>
+                </nav>
             </div>
             <div class="col-3">
                 <ul class="list-group">
@@ -102,13 +105,32 @@
                     @endforeach
                 </ul>
                 <br>
-{{--                tìm kiếm --}}
-                <form class="d-flex" role="search" method="POST" action="{{route('sreach')}}">
+                {{--                tìm kiếm --}}
+                <form class="d-flex"  role="search" method="POST" action="{{route('sreach')}}">
                     @csrf
                     @method('GET')
-                    <input class="form-control me-2" name="inputsreach" type="search" placeholder="Search" aria-label="Search">
-                    <button type="submit" name="btn">Tìm </button>
+                    <input class="form-control me-2" name="inputsreach" type="search" placeholder="Search"
+                           aria-label="Search">
+                    <button type="submit" name="btn">Tìm</button>
                 </form>
+                <br>
+                <form method="POST" id="myform" action="{{route('xapsepsanpham')}}">
+                    @csrf
+                    @method('POST')
+                    <select class="form-select" name="xapsep" onchange="submitform()">
+                        <option value="0">Xếp theo: Nổi Bật</option>
+                        <option value="1">Xếp theo: Giá cao đến thấp</option>
+                        <option value="2">Xếp theo: Giá thấp đến cao</option>
+                    </select>
+                </form>
+                <script>
+                    function submitform(){
+
+                       document.getElementById('myform').submit();
+
+                    }
+
+                </script>
             </div>
         </div>
 
