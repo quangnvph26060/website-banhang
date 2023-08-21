@@ -34,8 +34,10 @@
                 <td>
                     @if($item->status == 'Chờ xác nhận')
                         <a href="{{route('deldh',['id'=>$item->id])}}" class="btn btn-danger">Hủy Đơn Hàng </a>
+                    @elseif($item->status == 'Giao Hàng Thành Công')
+                        <a class="btn btn-primary" href="#">Đánh Giá Đơn Hàng</a>
                     @else
-                        <a class="btn btn-primary"> Đơn Hàng đang được giao</a>
+                        <a class="btn btn-secondary"> Đơn Hàng đang được giao</a>
                     @endif
                 </td>
             </tr>

@@ -22,7 +22,6 @@ class DonHangController extends Controller
             ->select('sanpham.tensanpham', 'orders.ngaydat',
                 'orders.status', 'order_items.quantity', 'order_items.total_price', 'order_items.id')->get();;
 
-
         return view('cleint.thongtinuser', compact('dh'));
     }
 
