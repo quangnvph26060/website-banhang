@@ -13,9 +13,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// login logout
+// route liên quan đến tài khoản
 Route::match(['POST', 'GET'], '/login', [\App\Http\Controllers\login\LoginController::class, 'login'])->name('login');
 Route::get('GET',[\App\Http\Controllers\login\LoginController::class,'logout'])->name('logout');
+Route::get('retriveal',[\App\Http\Controllers\login\LoginController::class,'RetrivealPassword'])->name('mk');
+Route::post('resetpassword',[\App\Http\Controllers\login\LoginController::class,'resetpassword'])->name('resetpassword');
+Route::get('change-pass',[\App\Http\Controllers\client\UserController::class,'changePassWord'])->name('changepass');
+Route::post('change-pass',[\App\Http\Controllers\client\UserController::class,'ChangePassEdit'])->name('changepassedit');
+//  end route liên quan đến tài khoản
 // Amdin
 Route::middleware('auth')->group(function (){
     Route::middleware('check.role')->prefix('category')->group(function () {

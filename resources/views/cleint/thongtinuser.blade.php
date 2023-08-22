@@ -70,6 +70,10 @@
                     <li class="list-group-item">
                         <a class="nav-link" href="{{route('thongtinuser')}}">Tình trạng đơn hàng </a>
                     </li>
+
+                    <li class="list-group-item">
+                        <a class="nav-link" href="{{route('changepass')}}">Đổi mật khẩu</a>
+                    </li>
                     <li class="list-group-item">
                         <a class="nav-link" href="{{route('logout')}}">Đăng Xuất</a>
                     </li>

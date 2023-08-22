@@ -74,6 +74,9 @@
                     </li>
 
                     <li class="list-group-item">
+                        <a class="nav-link" href="{{route('changepass')}}">Đổi mật khẩu</a>
+                    </li>
+                    <li class="list-group-item">
                         <a class="nav-link" href="{{route('logout')}}">Đăng Xuất</a>
                     </li>
                     @if(auth()->user()->role  == 1)
@@ -86,43 +89,43 @@
 
         </div>
         <div class="col-8">
-            <div class="row">
-                 <span>  Họ tên: {{auth()->user()->name}}
-                    <button type="button" id="btn">edit</button>
-                        <div class="update">
-                            <form method="POST" action="{{route('username')}}">
-                                @csrf
-                                <input type="text" name="name" value="{{auth()->user()->name}}">
-                               <button type="submit" >Save</button>
-                            </form>
-                        </div>
-                     </span>
-            </div>
-            <div class="row">
-                    <span> Địa Chỉ: {{auth()->user()->diachi == 0 ? "" :auth()->user()->diachi }}
-                        <button type="button" id="btn1">edit</button>
-                         <div class="update1">
-                            <form method="POST" action="{{route('address')}}">
-                                @csrf
-                                <input type="text" name="diachi" value="{{auth()->user()->diachi}}">
-                               <button type="submit" >Save</button>
-                            </form>
-                        </div>
-                    </span>
-            </div>
-            <div class="row">
-                    <span>  Số Điện Thoại: {{auth()->user()->sdt == 0 ? "":auth()->user()->sdt }}
-                <button type="button" id="btn2">edit</button>
-                <div class="update2">
-                    <form method="POST" action="{{route('phone')}}">
-                        @csrf
-                        <input type="text" name="sdt" value="{{auth()->user()->sdt}}">
-                        <button type="submit">Save</button>
-                    </form>
-                </div>
-                    </span>
-            </div>
+            @if(Session('error'))
 
+                <div class="alert alert-danger">
+                    {{Session('error')}}
+                </div>
+            @endif
+            <form action="{{route('changepassedit')}}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <input type="email" class="form-control"
+                           id="exampleInputEmail1" value="{{auth()->user()->email}}" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+                    @error('password')
+                    <span style="color: red">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password New</label>
+                    <input type="password" class="form-control" name="passwordnew" id="exampleInputPassword1">
+                    @error('passwordnew')
+                    <span style="color: red">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password Confirm</label>
+                    <input type="password" class="form-control" name="passwordconfirm" id="exampleInputPassword1">
+                    @error('passwordconfirm')
+                    <span style="color: red">{{$message}}</span>
+                    @enderror
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
 
         </div>
 
@@ -130,33 +133,4 @@
 
     <br>
 
-
-
-    <style>
-        /*ẩn form thay đổi đi*/
-        .update,.update1 , .update2 {
-            display: none;
-        }
-        #btn,#btn1,#btn2 {
-            background: white;
-            border-color: white;
-        }
-    </style>
-    <script>
-        // tên
-        document.querySelector('#btn').addEventListener('click', function () {
-            // classList.remove xóa class update đi để hiển thị form thay đổi ra trong js
-            document.querySelector('.update').classList.remove('update');
-        });
-        // địa chỉ
-        document.querySelector('#btn1').addEventListener('click', function () {
-            // classList.remove xóa class update đi để hiển thị form thay đổi ra trong js
-            document.querySelector('.update1').classList.remove('update1');
-        });
-        // sdt
-        document.querySelector('#btn2').addEventListener('click', function () {
-            // classList.remove xóa class update đi để hiển thị form thay đổi ra trong js
-            document.querySelector('.update2').classList.remove('update2');
-        });
-    </script>
 @endsection

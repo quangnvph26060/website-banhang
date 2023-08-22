@@ -48,4 +48,5 @@ class DonHangController extends Controller
     {
         return view('cleint.userdetail');
     }
+
 }

@@ -11,7 +11,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Database\Schema;
 use Illuminate\Support\Facades\Redirect;
-use Mail; // thư viện của laravel
+use Mail;
+use Illuminate\Support\Str;
+
+
+// thư viện của laravel
 class LoginController extends Controller
 {
     // login
@@ -77,4 +81,29 @@ class LoginController extends Controller
         }
         return view('login.register');
     }
+    // chức năng lấy lại mật khẩu
+    public function RetrivealPassword(){
+        return view('login.retrivealpassword');
+    }
+    public function resetpassword(Request $request){
+            $mail = $request->email;
+            $password =random_int(0,99999); // mật khẩu mới là 5 s ngẫu nhiên
+           $user = User::where('email','like','%'.$mail.'%')->first();
+        if($user){
+            $resetpass = User::where('email','like','%'.$mail.'%')->first();
+            $result =  $resetpass->update(['password'=>bcrypt( $password)]);
+            // nếu thành công thì gửi pass mới qua mail
+            if($result){
+                Mail::send('email.resetmail',compact('password'),function ($email) use($mail){
+                    $email->subject('Lấy Lại Mật Khẩu');// chủ đề mail
+                    $email->to($mail);
+                });
+                return redirect(route('login'))->with('message','Kiểm Tra Mail để nhan mật khẩu mới');
+            }
+        }else{
+            return back()->with('msg','Email chưa được kích hoạt tài khoản');
+        }
+
+    }
+
 }

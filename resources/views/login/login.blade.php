@@ -21,6 +21,11 @@
                     {{Session('msg')}}
                 </div>
             @endif
+                @if(Session('message'))
+                    <div class="alert alert-primary">
+                        {{Session('message')}}
+                    </div>
+                @endif
             <div class="col-4"></div>
             <div class="col-4">
                 @if(Session('error'))
@@ -48,6 +53,7 @@
 
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <a href="{{route('register')}}">Đăng Ký</a>
+                    <a href="{{route('mk')}}">Quên mật khẩu </a>
                 </form>
             </div>
             <div class="col-4"></div>
