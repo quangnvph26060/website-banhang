@@ -1,4 +1,3 @@
-
 @extends('layout.template')
 @section('content')
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: white !important;">
@@ -47,13 +46,16 @@
 
                     </li>
 
-                    <a href="{{route('showgiohang')}}"> <button type="button" class="btn btn-danger position-relative" style="width: 10%;float: right">
+                    <a href="{{route('showgiohang')}}">
+                        <button type="button" class="btn btn-danger position-relative" style="width: 10%;float: right">
                             <i class="fas fa-shopping-cart"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             1
     <span class="visually-hidden">unread messages</span>
   </span>
-                        </button></a>
+                        </button>
+                    </a>
                 </ul>
             </div>
         </div>
@@ -62,64 +64,87 @@
     <br>
     <div class="row">
         <div class="col-6">
-                <p>Thông Tin Người Nhận</p>
+            <p>Thông Tin Người Nhận</p>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Họ Tên</label>
-                <input type="text"  name="name" value="{{auth()->user()->name}} "class="form-control" id="exampleInputPassword1">
+                <input type="text" name="name" value="{{auth()->user()->name}} " class="form-control"
+                       id="exampleInputPassword1">
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Địa Chỉ</label>
-                <input type="text"  name="diachi" value="{{auth()->user()->diachi}} "class="form-control" id="exampleInputPassword1">
-                <div id="emailHelp" class="form-text"><a href="#">Thay đổi địa chỉ người nhận</a></div>
+                <input type="text" id="diachi" name="diachi"
+                       value="{{auth()->user()->diachi }} "
+                       class="form-control" id="exampleInputPassword1">
+                <div id="emailHelp" class="form-text"><a href="{{route('userdetail')}}">Thay đổi địa chỉ người
+                        nhận</a></div>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Số điện thoại</label>
-                <input type="text"  name="sdt" value=" {{auth()->user()->sdt}}"class="form-control" id="exampleInputPassword1">
-            </div>
-            <form action="{{route('dathang')}}" method="POST">
-                @method('GET')
-                @csrf
-                <div class="mb-3">
-                    <input type="radio"  name="payment" value="Thanh Toán Khi nhận hàng" checked> Thanh Toán Khi nhận hàng
+                <input type="text" id="phone" name="sdt"
+                       value=" {{auth()->user()->sdt}}"
+                       class="form-control"
+                       id="exampleInputPassword1">
+                <div id="emailHelp" class="form-text"><a href="{{route('userdetail')}}">Thay đổi số điện thoại
+                        người nhận</a>
                 </div>
-
-                <div class="mb-3">
-
-                    <a class="btn btn-primary" href="{{route('dathang')}}"> Đặt Hàng</a>
-                </div>
-            </form>
-
-        </div>
-        <div class="col-6">
-            <div class="card-group">
-                @php
-                    $tongtien = 0;
-                $tong =0;
-                @endphp
-                @foreach($dathang as $item)
-                    <div class="card">
-                        <img src="{{$item->image ? Storage::url($item->image):""}}"
-                             class="img-fluid rounded-start" alt="..." width="30%">
-                        <div class="card-body">
-                            <h5 class="card-title">{{$item->tensanpham}}</h5>
-                            <p class="card-text">{{$item->mota}}</p>
-                            <p class="card-text"><small
-                                    class="text-body-secondary">{{number_format($item->gia)}} đ</small></p>
-                            <p class="card-text"><small class="text-body-secondary">Số
-                                    Lượng:{{$item->quantity}}</small></p>
-                        </div>
+                <form action="{{route('dathang')}}" method="POST">
+                    @method('GET')
+                    @csrf
+                    <div class="mb-3">
+                        <input type="radio" name="payment" value="Thanh Toán Khi nhận hàng" checked> Thanh Toán Khi
+                        nhận hàng
                     </div>
-                    @php  $tongtien= $item->quantity*$item->gia;
+
+                    <div class="mb-3">
+
+                        <a class="btn btn-primary" href="{{route('dathang')}}" id="btn"> Đặt Hàng</a>
+                    </div>
+                </form>
+                <script>
+                    document.getElementById('btn').addEventListener('click',function (e){
+                        e.preventDefault(); // ngăn không cho reload lại trang
+                        var phone = document.getElementById("phone").value; // lấy giá trị của phone
+                        var diachi = document.getElementById("diachi").value; // lấy giá trị của diachi
+
+                        if (phone ==0 || diachi ==0) {
+                           alert('Vui Lòng Cập nhật Địa Chỉ và Số điện thoại ')
+                        }else{
+                            // thực hiện route xuất hóa đơn
+                            window.location.href = "/dathang";
+                        }
+                    });
+
+                </script>
+
+            </div>
+            <div class="col-6">
+                <div class="card-group">
+                    @php
+                        $tongtien = 0;
+                    $tong =0;
+                    @endphp
+                    @foreach($dathang as $item)
+                        <div class="card">
+                            <img src="{{$item->image ? Storage::url($item->image):""}}"
+                                 class="img-fluid rounded-start" alt="..." width="30%">
+                            <div class="card-body">
+                                <h5 class="card-title">{{$item->tensanpham}}</h5>
+                                <p class="card-text">{{$item->mota}}</p>
+                                <p class="card-text"><small
+                                        class="text-body-secondary">{{number_format($item->gia)}} đ</small></p>
+                                <p class="card-text"><small class="text-body-secondary">Số
+                                        Lượng:{{$item->quantity}}</small></p>
+                            </div>
+                        </div>
+                        @php  $tongtien= $item->quantity*$item->gia;
 
                                         $tong +=$tongtien;
-                    @endphp
-                @endforeach
+                        @endphp
+                    @endforeach
+                </div>
+                <p>Tổng Tiền: @php echo number_format($tong ) .'đ'@endphp</p>
             </div>
-            <p>Tổng Tiền: @php echo number_format($tong ) .'đ'@endphp</p>
+
         </div>
-
-    </div>
-
-
 
 @endsection
