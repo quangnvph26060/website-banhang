@@ -18,7 +18,8 @@ class UserController extends Controller
         if ($request->isMethod('POST')) {
             $userId = auth::id(); // id mà user đó đăng nhập vào
             $user = User::find($userId);
-            $result = $user->update(['name' => $request->name]);
+            $name = $request->name == ""? auth::user()->name : $request->name;
+            $result = $user->update(['name' => $name]);
             // nếu update thành công
             if ($result) {
                 return redirect()->route('userdetail');
@@ -31,7 +32,8 @@ class UserController extends Controller
         if ($request->isMethod('POST')) {
             $userId = auth::id(); // id mà user đó đăng nhập vào
             $user = User::find($userId);
-            $result = $user->update(['diachi' => $request->diachi]);
+            $address = $request->diachi == "" ? "0" : $request->diachi;
+            $result = $user->update(['diachi' => $address]);
             // nếu update thành công
             if ($result) {
                 return redirect()->route('userdetail');
@@ -44,8 +46,8 @@ class UserController extends Controller
         if ($request->isMethod('POST')) {
             $userId = auth::id(); // id mà user đó đăng nhập vào
             $user = User::find($userId);
-
-            $result = $user->update(['sdt' => $request->sdt]);
+            $phone = $request->sdt == "" ? "0" : $request->sdt;
+            $result = $user->update(['sdt' => $phone]);
             // nếu update thành công
             if ($result) {
                 return redirect()->route('userdetail');
@@ -58,28 +60,30 @@ class UserController extends Controller
     {
         return view('login.changepass');
     }
-    public function ChangePassEdit(ChangePassRequest $request){
+
+    public function ChangePassEdit(ChangePassRequest $request)
+    {
         $password = $request->password; // pass cũ
         $passwordnew = $request->passwordnew; // pass mới
         $passwordconfirm = $request->passwordconfirm; // xác nhận pass mới
         $user = Auth::user();//là một cách để truy cập thông tin của người dùng
-       // hiện tại đang được xác thực trong hệ thống.
+        // hiện tại đang được xác thực trong hệ thống.
 
         // kiểm tra mật khẩu nhập vào có trùng với mt khẩu trong DB hay không
-        if(Hash::check($password,$user->password)){
+        if (Hash::check($password, $user->password)) {
 
-            if($passwordnew == $passwordconfirm){
+            if ($passwordnew == $passwordconfirm) {
                 $user = Auth::user();
-                $result =  $user->update(['password'=>bcrypt($passwordnew)]);
+                $result = $user->update(['password' => bcrypt($passwordnew)]);
                 // neu thành công hiển thị thông báo
-                if($result){
+                if ($result) {
                     return redirect()->back()->with('error', 'đổi mật khẩu thành công.');
                 }
-            }else{
+            } else {
                 return redirect()->back()->with('error', 'Mật khẩu không trùng nhau.');
             }
-        }else{
-             return redirect()->back()->with('error', 'Mật khẩu hiện tại không chính xác.');
+        } else {
+            return redirect()->back()->with('error', 'Mật khẩu hiện tại không chính xác.');
         }
 
     }

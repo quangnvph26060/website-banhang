@@ -87,7 +87,7 @@ class LoginController extends Controller
     }
     public function resetpassword(Request $request){
             $mail = $request->email;
-            $password =random_int(0,99999); // mật khẩu mới là 5 s ngẫu nhiên
+            $password =random_int(0,99999); // mật khẩu mới là 5 số ngẫu nhiên
            $user = User::where('email','like','%'.$mail.'%')->first();
         if($user){
             $resetpass = User::where('email','like','%'.$mail.'%')->first();

@@ -39,12 +39,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('login')}}">Đăng nhập</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('register')}}">Đăng Ký</a>
+
+                        </li>
                     @endif
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('register')}}">Đăng Ký</a>
 
-                    </li>
 
                     <a href="{{route('showgiohang')}}">
                         <button type="button" class="btn btn-danger position-relative" style="width: 10%;float: right">
@@ -109,7 +110,7 @@
                         if (phone ==0 || diachi ==0) {
                            alert('Vui Lòng Cập nhật Địa Chỉ và Số điện thoại ')
                         }else{
-                            // thực hiện route xuất hóa đơn
+                            // thực hiện route xuất hóa đơnhang
                             window.location.href = "/dathang";
                         }
                     });

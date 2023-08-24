@@ -48,7 +48,7 @@ class HomeController extends Controller
             return view('cleint.sanpham', compact('sp', 'banner', 'loai'));
         } else {
 
-            $sp = SanPhamModel::all();
+            $sp = SanPhamModel::paginate(9);
         }
         return view('cleint.sanpham', compact('sp', 'banner', 'loai'));
 

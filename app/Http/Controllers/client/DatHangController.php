@@ -10,7 +10,7 @@ use App\Models\SanPhamModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Mail;
 class DatHangController extends Controller
 {
     // đặt hàng
@@ -37,13 +37,27 @@ class DatHangController extends Controller
                 $orderItem->save();
             }
             GiohangModel::where('id_user', $userid)->delete(); // xóa giỏ hàng khi đặt hàng thành công
-
+            // hiển thị thông tin các sản phẩm đã dặt ra trang hóa đơn
             $userId = Auth::id();
+            $countOrderItem = OrderItemModel::where('created_at','=',date('Y-m-d H:i:s'))->count(); // đếm ra các bản ghi mới vừa được thêm vào để hiển thị các bản ghi mới vừa được mua
+           // hiển thị các bản ghi mới vừa được dặt
             $dathang = OrderModel::where('id_user', $userId)
                 ->join('order_items', 'orders.id', '=', 'order_items.id_order')
                 ->join('sanpham', 'order_items.id_sanpham', '=', 'sanpham.id')
                 ->select('order_items.id_sanpham', 'sanpham.tensanpham', 'order_items.quantity', 'order_items.total_price',
-                    'orders.ngaydat', 'orders.status')->get();
+                    'orders.ngaydat', 'orders.status')->orderBy('order_items.created_at', 'desc')->take($countOrderItem)->get();
+
+            // nếu thành công thì gủi mail
+            if($orderItem && $order)
+            {
+                $name = auth::user()->name;
+               Mail::send('email.hoadon',compact('name','dathang'),function ($mail){
+                  $mail->subject('Hóa đơn Mua Hàng'); // tiêu đề mail
+                   //auth::user()->email lấy email của người dùng đang được xác thực trong hệ thốn
+                   $mail->to(auth::user()->email,auth::user()->name);
+               });
+            }
+
             return view('cleint.hoadon', compact('dathang'));
         } else {
             return redirect()->route('login');

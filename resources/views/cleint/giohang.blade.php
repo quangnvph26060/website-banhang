@@ -29,28 +29,31 @@
                     {{--                    Kiểm tra xem người dùng có đăng nhập hay không --}}
                     @if(auth()->check())
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('thongtinuser')}}">Chào,{{auth()->user()->name}}</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('thongtinuser')}}">Chào,{{auth()->user()->name}}</a>
+                        </li>
 
                     @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('login')}}">Đăng nhập</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('register')}}">Đăng Ký</a>
+
+                        </li>
                     @endif
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('register')}}">Đăng Ký</a>
 
-                    </li>
-
-                    <a href="{{route('showgiohang')}}"> <button type="button" class="btn btn-danger position-relative" style="width: 10%;float: right">
-                              <i class="fas fa-shopping-cart"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    <a href="{{route('showgiohang')}}">
+                        <button type="button" class="btn btn-danger position-relative" style="width: 10%;float: right">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             1
     <span class="visually-hidden">unread messages</span>
   </span>
-                        </button></a>
+                        </button>
+                    </a>
                 </ul>
             </div>
         </div>
@@ -65,13 +68,22 @@
         </div>
     @endif
 
-    <h4> Giỏ Hàng Của:
+    <h4 class="text"> Giỏ Hàng Của:
         @if(auth()->check())
             {{auth()->user()->name ? auth()->user()->name :""}}
         @endif
     </h4>
+    {{--    check xem giỏ hàng có trống hay không isEmpty()--}}
     @if($giohang->isEmpty())
-        <h2>Giỏ Hàng Trống</h2>
+
+       <div style="text-align: center"class="alert alert-danger">
+           <i class="fas fa-cart-plus" style=" color: #808080;
+    font-size: 24px;
+    transform: scale(1.5);
+    "></i>
+
+           <p >Giỏ Hàng Trống</p>
+       </div>
     @else
         <tbody>
         @php $tongtien = 0;
@@ -108,7 +120,8 @@
             <tr>
 
                 <td>
-                    <a class="btn btn-danger" style="width: 20%" href="{{route('delgiohang',['id'=>$item->id])}}">Xóa</a>
+                    <a class="btn btn-danger" style="width: 20%"
+                       href="{{route('delgiohang',['id'=>$item->id])}}">Xóa</a>
                 </td>
 
             </tr>

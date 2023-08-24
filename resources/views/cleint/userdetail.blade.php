@@ -104,7 +104,7 @@
                          <div class="update1">
                             <form method="POST" action="{{route('address')}}">
                                 @csrf
-                                <input type="text" name="diachi" value="{{auth()->user()->diachi}}">
+                                <input type="text" name="diachi" id="diachi" value="{{auth()->user()->diachi}}">
                                <button type="submit" >Save</button>
                             </form>
                         </div>
@@ -116,7 +116,7 @@
                 <div class="update2">
                     <form method="POST" action="{{route('phone')}}">
                         @csrf
-                        <input type="text" name="sdt" value="{{auth()->user()->sdt}}">
+                        <input type="text" name="sdt"  id="sdt"value="{{auth()->user()->sdt}}">
                         <button type="submit">Save</button>
                     </form>
                 </div>
@@ -143,10 +143,20 @@
         }
     </style>
     <script>
+        var phone = document.getElementById('sdt').value;
+        var diachi = document.getElementById('diachi').value;
+        console.log(diachi)
+        if(phone ==0){
+            alert('Bạn nên cập nhật số điện thoại của mình');
+        }
+        if(diachi ==0){
+            alert('Bạn nên cập nhật địa chỉ của mình');
+        }
         // tên
         document.querySelector('#btn').addEventListener('click', function () {
             // classList.remove xóa class update đi để hiển thị form thay đổi ra trong js
             document.querySelector('.update').classList.remove('update');
+
         });
         // địa chỉ
         document.querySelector('#btn1').addEventListener('click', function () {

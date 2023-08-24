@@ -38,12 +38,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('login')}}">Đăng nhập</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('register')}}">Đăng Ký</a>
+
+                        </li>
                     @endif
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('register')}}">Đăng Ký</a>
 
-                    </li>
 
                     <a href="{{route('showgiohang')}}"> <button type="button" class="btn btn-danger position-relative" style="width: 10%;float: right">
                             <i class="fas fa-shopping-cart"></i>
@@ -66,7 +67,6 @@
                     <a class="nav-link"href="{{route('userdetail')}}">Thông tin cá nhân</a>
                 </li>
                 @if(auth()->check())
-
                     <li class="list-group-item">
                         <a class="nav-link" href="{{route('thongtinuser')}}">Tình trạng đơn hàng </a>
                     </li>
