@@ -19,6 +19,7 @@ Route::get('GET',[\App\Http\Controllers\login\LoginController::class,'logout'])-
 Route::get('retriveal',[\App\Http\Controllers\login\LoginController::class,'RetrivealPassword'])->name('mk');
 Route::post('resetpassword',[\App\Http\Controllers\login\LoginController::class,'resetpassword'])->name('resetpassword');
 Route::get('change-pass',[\App\Http\Controllers\client\UserController::class,'changePassWord'])->name('changepass');
+Route::match(['POST','GET'],'/confrimpass',[\App\Http\Controllers\login\LoginController::class,'ConfrimMail'])->name('confrimpass');
 Route::post('change-pass',[\App\Http\Controllers\client\UserController::class,'ChangePassEdit'])->name('changepassedit');
 //  end route liên quan đến tài khoản
 // Amdin

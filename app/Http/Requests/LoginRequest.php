@@ -42,6 +42,11 @@ class LoginRequest extends FormRequest
                             'gender' => 'required',
                         ];
                         break;
+                    case 'ConfrimMail':
+                        $rules = [
+                            'maxacnhan' => 'required',
+                        ];
+                        break;
                 }
                 break;
             default:

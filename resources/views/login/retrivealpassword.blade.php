@@ -39,18 +39,43 @@
 <div class="container">
 
     <h2>Quên mật khẩu</h2>
-    <form action="{{route('resetpassword')}}" method="post">
+    <form action="{{route('resetpassword')}}" method="POST">
         @csrf
+
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" value="{{$email}}" required>
+        <style>
+            .block {
+                display: none;
+            }
+
+            .show {
+                display: block;
+            }
+
+        </style>
+
         @if(Session('msg'))
             <div class="alert alert-danger" style="color: red">
                 {{Session('msg')}}
             </div>
         @endif
-        <input type="submit" value="Gửi yêu cầu">
-        <a href="{{route('login')}}">Quay lại</a>
+        <input type="submit" class="btn btn-primary {{$fl==0?"block":""}}" value="Gửi Yêu Cầu"/>
+        {{--                {!!   $fl==0?'<a href="'.route('/').'">Lấy Lại Mật Khẩu</a>':"Gửi Yêu Cầu" !!}--}}
+
+
     </form>
+    <form method="POST" action="{{route('confrimpass')}}">
+        @csrf
+        @method('GET')
+        <div class="block {{$fl==0?"show":""}}">
+            <label for="email">Xác Nhận Mã:</label>
+            <input type="text" id="maxacnhan" name="maxacnhan" class="form-control is-invalid">
+
+        </div>
+        <input type="submit" class="btn btn-primary {{$fl==0?"":"block"}}" value="Lấy lại mật khẩu "/>
+    </form>
+    <a href="{{route('login')}}">Quay lại</a>
 </div>
 </body>
 </html>
