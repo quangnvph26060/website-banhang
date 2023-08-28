@@ -29,8 +29,10 @@ class LoginRequest extends FormRequest
                     case 'login':
                         $rules = [
                             'password' => 'required',
-                            'email' => 'required',
+                            'email' => 'required|email',
                         ];
+
+
                         break;
                     case 'register':
                         $rules = [
@@ -59,6 +61,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email.required' => 'Vui Lòng Nhập Email',
+            'email.email' => 'Email sai định dạng',
             'email.unique' => 'Email đã được đăng ký',
             'password.required' => 'Vui lòng nhập mật khẩu',
             'name.required'=>'Thông tin không được bỏ trống',

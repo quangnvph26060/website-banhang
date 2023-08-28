@@ -46,13 +46,16 @@
 
                     </li>
 
-                    <a href="{{route('showgiohang')}}"> <button type="button" class="btn btn-danger position-relative" style="width: 10%;float: right">
+                    <a href="{{route('showgiohang')}}">
+                        <button type="button" class="btn btn-danger position-relative" style="width: 10%;float: right">
                             <i class="fas fa-shopping-cart"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            1
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
     <span class="visually-hidden">unread messages</span>
   </span>
-                        </button></a>
+                        </button>
+                    </a>
                 </ul>
             </div>
         </div>
@@ -79,11 +82,35 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{$spdetail->tensanpham}}</h5>
                                 <p class="card-text">{{$spdetail->mota}}</p>
-                                <p class="card-text"><small class="text-body-secondary">{{$spdetail->gia}}</small></p>
-                                <p class="card-text"><small class="text-body-secondary">Số
-                                        Lượng: {{$spdetail->soluong}}</small></p>
-                                <input type="number" value="1" min="1" name="soluong">
-{{--                                <a href="{{route('showgiohang')}}" class="btn btn-primary" style="width: 30%">Đặt Hàng</a>--}}
+                                <p class="card-text"><small
+                                        class="text-body-secondary">{{number_format($spdetail->gia)}}đ</small></p>
+                                {{--                                <p class="card-text"><small class="text-body-secondary">Số--}}
+                                {{--                                        Lượng: {{$spdetail->soluong}}</small></p>--}}
+                                <div class="row">
+                                   <span>
+                                    <button type="button" class="up" >+</button>
+                                    <input type="number" class="form-control qty" id="soluong" step="1" value="1" min="1"
+                                           name="soluong">
+                                    <button type="button" class="down">-</button>
+                                   </span>
+                                    <script>
+                                        const soluong = document.querySelector(".qty");
+                                        const up = document.querySelector(".up"),
+                                            down = document.querySelector(".down");
+                                        let a = 1;
+                                        up.addEventListener('click', function () {
+                                            a++;
+                                            soluong.value = a;
+                                        })
+                                        down.addEventListener('click', function () {
+                                            if (a > 0) {
+                                                a--;
+                                                soluong.value = a;
+                                            }
+                                        })
+                                    </script>
+                                </div>
+                                {{--                                <a href="{{route('showgiohang')}}" class="btn btn-primary" style="width: 30%">Đặt Hàng</a>--}}
 
                                 <button type="submit" class="btn btn-danger" style="width: 30%">Đặt Hàng</button>
                             </div>
