@@ -70,7 +70,7 @@
               <p> <a href="{{route('register')}}" class="link-underline-light">Đăng Ký</a></p>
                <p><a href="{{route('mk')}}"  class="link-underline-light">Quên mật khẩu </a></p>
                <p><a href="{{route('redirectgoogle')}}">đăng nhập bằng google</a></p>
-               <p><a href="">đăng nhập bằng facebook</a></p>
+               <p><a href="{{route('auth.facebook')}}">đăng nhập bằng facebook</a></p>
            </div>
         </form>
     </div>

@@ -22,12 +22,12 @@ Route::get('chinh_sach',function (){
 });
 Route::get('auth/google',[\App\Http\Controllers\login\LoginController::class,'redirectToGoogle'])->name('redirectgoogle');
 Route::get('auth/google/callback', [\App\Http\Controllers\login\LoginController::class,'handleGoogleCallback']);
-Route::get('login/facebook/callback',function (){
-    return 'callback login facebook';
+Route::get('auth/facebook/callback',function (){
+    return Socialite::driver('facebook')->user();
 });
-Route::get('login/facebook',function (){
+Route::get('auth/facebook',function (){
     return Socialite::driver('facebook')->redirect();
-});
+})->name('auth.facebook');
 // route liên quan đến tài khoản
 
 Route::match(['POST', 'GET'], '/login', [\App\Http\Controllers\login\LoginController::class, 'login'])->name('login');
