@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\OrderModel;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +14,22 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// login google
+//Route::get('login/google', 'Auth\LoginController@redirectToGoogle');
+//Route::get('login/google/callback', 'Auth\LoginController@handleGoogleCallback');
+Route::get('chinh_sach',function (){
+    return '<h1>Chính sách riêng tư</h1>';
+});
+Route::get('auth/google',[\App\Http\Controllers\login\LoginController::class,'redirectToGoogle'])->name('redirectgoogle');
+Route::get('auth/google/callback', [\App\Http\Controllers\login\LoginController::class,'handleGoogleCallback']);
+Route::get('login/facebook/callback',function (){
+    return 'callback login facebook';
+});
+Route::get('login/facebook',function (){
+    return Socialite::driver('facebook')->redirect();
+});
 // route liên quan đến tài khoản
+
 Route::match(['POST', 'GET'], '/login', [\App\Http\Controllers\login\LoginController::class, 'login'])->name('login');
 Route::get('GET',[\App\Http\Controllers\login\LoginController::class,'logout'])->name('logout');
 Route::get('retriveal',[\App\Http\Controllers\login\LoginController::class,'RetrivealPassword'])->name('mk');

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\OrderItemModel;
 use App\Models\OrderModel;
+use App\Models\SanPhamModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Mail;
@@ -29,25 +31,41 @@ class DonHangAdminController extends Controller
     {
         $cart = OrderModel::find($id);
         if ($request->isMethod('POST')) {
-            $cart->id_user = $cart->id_user;
-            $cart->ngaydat = $cart->ngaydat;
-            $cart->payment = $cart->payment;
+//            $cart->id_user = $cart->id_user;
+//            $cart->ngaydat = $cart->ngaydat;
+//            $cart->payment = $cart->payment;
+            $cart->update(['status' => $request->status]);
             $cart->status = $request->status;
             $result = $cart->save();
             // lấy mail của khách hàng
-            $mail = OrderModel::join('users','orders.id_user','=','users.id')
-                ->select('users.email','users.name')->where('users.id' ,'=',$cart->id_user)->find($id);
+            $mail = OrderModel::join('users', 'orders.id_user', '=', 'users.id')
+                ->select('users.email', 'users.name')->where('users.id', '=', $cart->id_user)->find($id);
 
             if ($result) {
                 // nếu edit là giao hàng thành công thì gửi mail cho khách hàng
                 // để xác nhận đơn hàng đã giao thành công
                 if ($cart->status == 'Giao Hàng Thành Công') {
+                    // cập nhật số lượt mua của sản phẩm này
+//                    $luotmua = OrderModel::where('status', 'giao hàng thành công')
+//                        ->join('order_items', 'orders.id', '=', 'order_items.id_order')
+//                        ->join('sanpham', 'order_items.id_sanpham', '=', 'sanpham.id')
+//                        ->select('sanpham.luotxem')->find($id);
+                    $luotmua = SanPhamModel::join('order_items', 'order_items.id_sanpham', '=', 'sanpham.id')
+                        ->join('orders', 'orders.id', '=', 'order_items.id_order')
+                        ->where('orders.status', 'giao hàng thành công')
+                        ->where('orders.id', '=', $id)
+                        ->select('sanpham.luotxem')->get();
+                    if ($luotmua) {
+
+                    }
+
+
                     $datetime = date('m-d-Y');
                     $mailuser = $mail->email;
                     $nameuser = $mail->name;
-                    Mail::send('email.orderdetail', compact('nameuser','datetime'), function ($email) use($mailuser,$nameuser){
+                    Mail::send('email.orderdetail', compact('nameuser', 'datetime'), function ($email) use ($mailuser, $nameuser) {
                         $email->subject('Giao Hàng Thành Công');
-                        $email->to($mailuser,$nameuser); // tham số đầu  tiên là địa chỉ mail nhận , tham số 2 là  tên người nhận
+                        $email->to($mailuser, $nameuser); // tham số đầu  tiên là địa chỉ mail nhận , tham số 2 là  tên người nhận
                     });
                 }
                 Session::flash('success', 'Cập nhật trạng thái thành công');
@@ -56,7 +74,6 @@ class DonHangAdminController extends Controller
         }
         return view('donhang.edit', compact('cart'));
     }
-
 
 
 }
