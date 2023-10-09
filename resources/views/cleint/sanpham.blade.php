@@ -26,10 +26,10 @@
                         <a class="nav-link" href="#">Liên Hệ</a>
                     </li>
                     {{--                    Kiểm tra xem người dùng có đăng nhập hay không --}}
-                    @if(auth()->check())
+                    @if(auth('client')->check() ||auth('web')->check())
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('thongtinuser')}}">Chào,{{auth()->user()->name}}</a>
+                            <a class="nav-link" href="{{route('thongtinuser')}}">Chào,{{ auth('client')->check() == true ?auth('client')->user()->name:auth('web')->user()->username  }}</a>
                         </li>
 
                     @else

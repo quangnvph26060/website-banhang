@@ -28,10 +28,10 @@
                         <a class="nav-link" href="#">Liên Hệ</a>
                     </li>
                     {{--                    Kiểm tra xem người dùng có đăng nhập hay không --}}
-                    @if(auth()->check())
+                    @if(auth('client')->check())
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('thongtinuser')}}">Chào,{{auth()->user()->name}}</a>
+                            <a class="nav-link" href="{{route('thongtinuser')}}">Chào,{{auth('client')->user()->name}}</a>
                         </li>
 
                     @else
@@ -66,7 +66,7 @@
                 <li class="list-group-item">
                     <a class="nav-link"href="{{route('userdetail')}}">Thông tin cá nhân</a>
                 </li>
-                @if(auth()->check())
+                @if(auth('client')->check() ||auth('web')->check())
                     <li class="list-group-item">
                         <a class="nav-link" href="{{route('thongtinuser')}}">Tình trạng đơn hàng </a>
                     </li>
@@ -77,7 +77,8 @@
                     <li class="list-group-item">
                         <a class="nav-link" href="{{route('logout')}}">Đăng Xuất</a>
                     </li>
-                    @if(auth()->user()->role  == 1)
+{{--                sửa chỗ này vì trong bảng khach hàng chưa có role--}}
+                    @if(auth('client')->user())
                         <li class="list-group-item">
                             <a class="nav-link" href="{{route('danhsach')}}">Quản trị</a>
                         </li>

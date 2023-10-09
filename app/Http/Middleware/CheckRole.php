@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
+use Auth;
 
 class CheckRole
 {
@@ -16,10 +17,12 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-            if(auth()->user()->role == 1){
-                return $next($request);
-            }else{
-                return redirect()->route('/');
-            }
+
+
+        if (Auth::guard('client')->check() && Auth::guard('client')->user()->role == 1) {
+            return $next($request);
+        }
+
+        return redirect('/'); // Chuyển hướng về đường dẫn gốc
     }
 }

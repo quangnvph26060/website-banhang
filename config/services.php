@@ -38,8 +38,8 @@ return [
         'redirect' => 'http://127.0.0.1:8000/auth/google/callback',
     ],
     'facebook' => [
-        'client_id' => '1022723789014074',
-        'client_secret' => 'ad34d4bc3b3d85ffeddf67bee4ed4450',
+        'client_id' => '304314962241014',
+        'client_secret' => '96ba2cb0eafb2e2f70aca24d4045600d',
         'redirect' => 'http://127.0.0.1:8000/auth/facebook/callback',
     ],
 

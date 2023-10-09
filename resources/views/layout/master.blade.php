@@ -41,7 +41,7 @@
 
                 </ul>
                 <li class="nav-item" id="trangchu" style="text-decoration: none;display: inline-block">
-                   <span>Chào; {{auth()->user()->name ? auth()->user()->name:" user"}}</span> / <a class="nav-link" href="{{route('/')}}">Thoát Admin</a>
+                   <span>Chào; {{auth('client')->user()->name ? auth('client')->user()->name:" user"}}</span> / <a class="nav-link" href="{{route('/')}}">Thoát Admin</a>
                 </li>
             </div>
         </div>

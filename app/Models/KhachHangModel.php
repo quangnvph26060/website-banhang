@@ -5,14 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class KhachHangModel extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;//add
+class KhachHangModel extends Authenticatable
 {
     use HasFactory;
     protected  $table = 'khachhang';
     protected $fillable= [
-        'username',
+        'email',
         'password',
         'role',
 
     ];
+    //add
+    public function  getAuthPassword()
+    {
+     return   $this->password;
+    }
 }

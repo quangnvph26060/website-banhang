@@ -7,6 +7,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
+use App\Models\KhachHangModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -25,8 +26,13 @@ class LoginController extends Controller
     // login
     public function login(LoginRequest $request)
     {
+
         if ($request->isMethod('POST')) {
-            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+
+            if (Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password])
+            ||  Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password])
+
+            ) {
                 return redirect()->route('/');
             } else {
                 return redirect()->route('login')->with('error', 'Mật Khẩu và tài khoản không chính xác!!!');
@@ -38,8 +44,9 @@ class LoginController extends Controller
     // logout
     public function logout()
     {
-        Auth::logout();
-        return redirect()->route('/');
+        Auth::guard('client')->logout();
+        Auth::guard('web')->logout();
+        return redirect('/');
     }
 
     // register

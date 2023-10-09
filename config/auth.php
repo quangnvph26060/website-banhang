@@ -38,10 +38,14 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'customusers',
         ],
         'api' => [
             'driver' => 'passport',
+            'provider' => 'users',
+        ],
+        'client' => [
+            'driver' => 'session',
             'provider' => 'users',
         ],
     ],
@@ -69,10 +73,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'customusers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\KhachHangModel::class,
+        ],
     ],
 
     /*
@@ -97,6 +101,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'customusers' => [
+            'provider' => 'customusers',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

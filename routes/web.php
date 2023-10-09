@@ -22,12 +22,13 @@ Route::get('chinh_sach',function (){
 });
 Route::get('auth/google',[\App\Http\Controllers\login\LoginController::class,'redirectToGoogle'])->name('redirectgoogle');
 Route::get('auth/google/callback', [\App\Http\Controllers\login\LoginController::class,'handleGoogleCallback']);
-Route::get('auth/facebook/callback',function (){
-    return Socialite::driver('facebook')->user();
-});
 Route::get('auth/facebook',function (){
     return Socialite::driver('facebook')->redirect();
 })->name('auth.facebook');
+Route::get('auth/facebook/callback',function (){
+    return Socialite::driver('facebook')->user();
+});
+
 // route liên quan đến tài khoản
 
 Route::match(['POST', 'GET'], '/login', [\App\Http\Controllers\login\LoginController::class, 'login'])->name('login');
@@ -39,7 +40,7 @@ Route::match(['POST','GET'],'/confrimpass',[\App\Http\Controllers\login\LoginCon
 Route::post('change-pass',[\App\Http\Controllers\client\UserController::class,'ChangePassEdit'])->name('changepassedit');
 //  end route liên quan đến tài khoản
 // Amdin
-Route::middleware('auth')->group(function (){
+Route::middleware('check.role')->group(function (){
     Route::middleware('check.role')->prefix('category')->group(function () {
         Route::get('/list', [\App\Http\Controllers\Admin\LoaiAdminController::class, 'showLoai'])->name('danhsach');
         Route::match(['POST', 'GET'],
