@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 // login google
 //Route::get('login/google', 'Auth\LoginController@redirectToGoogle');
 //Route::get('login/google/callback', 'Auth\LoginController@handleGoogleCallback');
@@ -22,12 +23,8 @@ Route::get('chinh_sach',function (){
 });
 Route::get('auth/google',[\App\Http\Controllers\login\LoginController::class,'redirectToGoogle'])->name('redirectgoogle');
 Route::get('auth/google/callback', [\App\Http\Controllers\login\LoginController::class,'handleGoogleCallback']);
-Route::get('auth/facebook',function (){
-    return Socialite::driver('facebook')->redirect();
-})->name('auth.facebook');
-Route::get('auth/facebook/callback',function (){
-    return Socialite::driver('facebook')->user();
-});
+Route::get('auth/facebook',[\App\Http\Controllers\login\LoginController::class,'redirectToFacebook'])->name('auth.facebook');
+Route::get('auth/facebook/callback',[\App\Http\Controllers\login\LoginController::class,'handleFacebookCallback']);
 
 // route liên quan đến tài khoản
 
@@ -66,9 +63,12 @@ Route::middleware('check.role')->group(function (){
     // user
     Route::middleware('check.role')->get('list',[\App\Http\Controllers\Admin\UserController::class,'listUser'])->name('listuser');
     Route::middleware('check.role')->match(['POST','GET'],'editUser/{id}',[\App\Http\Controllers\Admin\UserController::class,'editUser'])->name('edituser');
+    Route::middleware('check.role')->get('user',[\App\Http\Controllers\Admin\UserController::class,'index']);
     // don hang
     Route::middleware('check.role')->get('cart',[\App\Http\Controllers\Admin\DonHangAdminController::class,'showCart'])->name('donhang');
     Route::middleware('check.role')->match(['POST','GET'],'edit/{id}',[\App\Http\Controllers\Admin\DonHangAdminController::class,'editdonhang'])->name('editdh');
+
+
 });
 
 
@@ -105,3 +105,13 @@ Route::post('/xapsep',[\App\Http\Controllers\XapSepSanPhamController::class,'Xap
 
 // test mail
 //Route::get('mail',[\App\Http\Controllers\client\HomeController::class,'testMail']);
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});

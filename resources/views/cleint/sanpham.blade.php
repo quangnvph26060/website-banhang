@@ -29,7 +29,7 @@
                     @if(auth('client')->check() ||auth('web')->check())
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('thongtinuser')}}">Chào,{{ auth('client')->check() == true ?auth('client')->user()->name:auth('web')->user()->username  }}</a>
+                            <a class="nav-link" href="{{route('thongtinuser')}}">Chào,{{ auth('client')->check() == true ?auth('client')->user()->username:auth('web')->user()->name  }}</a>
                         </li>
 
                     @else

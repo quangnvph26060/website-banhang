@@ -19,7 +19,7 @@ class CheckRole
     {
 
 
-        if (Auth::guard('client')->check() && Auth::guard('client')->user()->role == 1) {
+        if (Auth::guard('web')->check() && Auth::guard('web')->user()->role == 1) {
             return $next($request);
         }
 

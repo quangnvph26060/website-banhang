@@ -157,7 +157,7 @@ class LoginController extends Controller
     {
 
         try {
-            $user = Socialite::driver('google')->user();
+            $user = Socialite::driver('google')->stateless()->user();
             $resultUser = User::where('email', $user->getEmail())->first();
 
             if($resultUser){
@@ -167,8 +167,8 @@ class LoginController extends Controller
             }else{
                 $user = User::create([
                     'name' =>$user->name,
-                    'sdt'=>'',
-                    'diachi'=>'',
+                    'sdt'=>'0932423423',
+                    'diachi'=>'badu',
                     'role'=>'0',
                     'password'=> bcrypt($user->getEmail()),
                     'email' => $user->getEmail(),
@@ -180,6 +180,52 @@ class LoginController extends Controller
             return redirect('/');
         } catch (\Throwable $th) {
             throw $th;
+        }
+    }
+    // login bằng facebook
+    public function redirectToFacebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function handleFacebookCallback()
+    {
+        try {
+
+            $user = Socialite::driver('facebook')->user();
+
+            $finduser = User::where('email', $user->getEmail())->first();
+
+            if($finduser){
+
+                Auth::login($finduser);
+
+                return redirect('/');
+
+            }else{
+                $newUser = User::create([
+                    'name' =>$user->name,
+                    'sdt'=>'',
+                    'diachi'=>'',
+                    'role'=>'0',
+                    'password'=> bcrypt($user->getEmail()),
+                    'email' => $user->getEmail(),
+                    'email_verified'=> $user->user['email_verified'],
+                    'remember_token' => $user->token,
+                ]);
+
+                Auth::login($newUser);
+
+                return redirect('/');
+            }
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
         }
     }
 
