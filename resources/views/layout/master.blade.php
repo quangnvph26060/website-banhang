@@ -28,9 +28,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('danhsach')}}">Quản Lý Loại</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('listsp')}}">Quản lý sản phẩm </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('listuser')}}">Quản Lý Khách Hàng</a>
                     </li>
@@ -41,7 +43,7 @@
 
                 </ul>
                 <li class="nav-item" id="trangchu" style="text-decoration: none;display: inline-block">
-                   <span>Chào; {{auth('web')->user()->name ? auth('web')->user()->username:" user"}}</span> / <a class="nav-link" href="{{route('/')}}">Thoát Admin</a>
+                   <span>Chào; {{auth('web')->user()->name ? auth('web')->user()->name:" user"}}</span> / <a class="nav-link" href="{{route('/')}}">Thoát Admin</a>
                 </li>
             </div>
         </div>

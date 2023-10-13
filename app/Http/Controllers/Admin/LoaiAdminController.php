@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Storage;
 
 class LoaiAdminController extends Controller
 {
+    public function __construct()
+    {
+        // user đang đăng nhập này có quyền gì thì các action mới đc gọi ra và thực thi
+        $this->middleware('permission:add ',['only'=>['addLoai']]);
+        $this->middleware('permission:edit ',['only'=>['editLoai']]);
+        $this->middleware('permission:delete ',['only'=>['deleteLoai']]);
+    }
     public function showLoai()
     {
         $loai = LoaiModel::all();

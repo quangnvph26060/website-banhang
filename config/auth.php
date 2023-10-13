@@ -36,6 +36,10 @@ return [
     */
 
     'guards' => [
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
         'client' => [
             'driver' => 'session',
             'provider' => 'customusers',
@@ -44,10 +48,7 @@ return [
             'driver' => 'passport',
             'provider' => 'users',
         ],
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
+
     ],
 
     /*

@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('google_id')->nullable();
             $table->string('name');
+            $table->string('sdt')->nullable();
+            $table->string('diachi')->nullable();
+            $table->string('gioitinh')->nullable();
+            $table->tinyInteger('role')->default(0);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

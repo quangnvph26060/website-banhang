@@ -18,9 +18,7 @@ use Illuminate\Support\Facades\Route;
 // login google
 //Route::get('login/google', 'Auth\LoginController@redirectToGoogle');
 //Route::get('login/google/callback', 'Auth\LoginController@handleGoogleCallback');
-Route::get('chinh_sach',function (){
-    return '<h1>Chính sách riêng tư</h1>';
-});
+
 Route::get('auth/google',[\App\Http\Controllers\login\LoginController::class,'redirectToGoogle'])->name('redirectgoogle');
 Route::get('auth/google/callback', [\App\Http\Controllers\login\LoginController::class,'handleGoogleCallback']);
 Route::get('auth/facebook',[\App\Http\Controllers\login\LoginController::class,'redirectToFacebook'])->name('auth.facebook');
@@ -71,7 +69,11 @@ Route::middleware('check.role')->group(function (){
 
 });
 
-
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('chinh_sach',function (){
+        return '<h1>Chính sách riêng tư</h1>';
+    });
+});
 
 
 // client
@@ -83,7 +85,6 @@ Route::get('/sanpham/{id}', [\App\Http\Controllers\client\HomeController::class,
 Route::get('/detail/{id}', [\App\Http\Controllers\SanPhamCTController::class, 'showDetail'])->name('showdetail');
 // tìm kiếm
 Route::get('sreach',[\App\Http\Controllers\client\HomeController::class,'sreachSP'])->name('sreach');
-Route::post('giohang',[\App\Http\Controllers\client\GioHangController::class,'addGioHang'])->name('giohang');
 Route::get('showgiohang',[\App\Http\Controllers\client\GioHangController::class,'showGioHang'])->name('showgiohang');
 Route::get('del/{id}',[\App\Http\Controllers\client\GioHangController::class,'delGioHang'])->name('delgiohang');
 //Route::get('',[\App\Http\Controllers\client\GioHangController::class,'countGioHang'])->name('countgiohang');

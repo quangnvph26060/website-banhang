@@ -1,4 +1,3 @@
-
 @extends('layout.template')
 @section('content')
     @section('title','Theo dõi đơn hàng')
@@ -34,25 +33,27 @@
                             <a class="nav-link" href="{{route('thongtinuser')}}">Chào,{{auth('web')->user()->name}}</a>
                         </li>
 
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('login')}}">Đăng nhập</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('register')}}">Đăng Ký</a>
 
+                    @endif
+                    @if(auth('client')->check())
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('thongtinuser')}}">Chào,{{auth('client')->user()->username}}</a>
                         </li>
+
                     @endif
 
 
-
-                    <a href="{{route('showgiohang')}}"> <button type="button" class="btn btn-danger position-relative" style="width: 10%;float: right">
+                    <a href="{{route('showgiohang')}}">
+                        <button type="button" class="btn btn-danger position-relative" style="width: 10%;float: right">
                             <i class="fas fa-shopping-cart"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
 
     <span class="visually-hidden">unread messages</span>
   </span>
-                        </button></a>
+                        </button>
+                    </a>
                 </ul>
             </div>
         </div>
@@ -64,7 +65,7 @@
         <div class="col-4">
             <ul class="list-group">
                 <li class="list-group-item">
-                    <a class="nav-link"href="{{route('userdetail')}}">Thông tin cá nhân</a>
+                    <a class="nav-link" href="{{route('userdetail')}}">Thông tin cá nhân</a>
                 </li>
                 @if(auth('client')->check() ||auth('web')->check())
                     <li class="list-group-item">
@@ -77,8 +78,13 @@
                     <li class="list-group-item">
                         <a class="nav-link" href="{{route('logout')}}">Đăng Xuất</a>
                     </li>
-{{--                sửa chỗ này vì trong bảng khach hàng chưa có role--}}
-                    @if(auth('web')->user()->role == 1)
+                    {{--                sửa chỗ này vì trong bảng khach hàng chưa có role--}}
+{{--                    @if(auth('client')->user()->role == 1 )--}}
+{{--                        <li class="list-group-item">--}}
+{{--                            <a class="nav-link" href="{{route('danhsach')}}">Quản trị</a>--}}
+{{--                        </li>--}}
+{{--                    @endif--}}
+                    @if(auth('web')->user()->role == 1 )
                         <li class="list-group-item">
                             <a class="nav-link" href="{{route('danhsach')}}">Quản trị</a>
                         </li>
@@ -88,12 +94,11 @@
 
         </div>
         <div class="col-8">
-                @include('cleint.donhangdetail',compact('dh'))
+            @include('cleint.donhangdetail',compact('dh'))
         </div>
 
     </div>
 
     <br>
-
 
 @endsection

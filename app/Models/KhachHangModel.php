@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;//add
 class KhachHangModel extends Authenticatable
 {
     use HasFactory;
+    use Notifiable;
     protected  $table = 'khachhang';
     protected $fillable= [
         'email',

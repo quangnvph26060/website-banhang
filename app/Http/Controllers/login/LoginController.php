@@ -29,10 +29,11 @@ class LoginController extends Controller
 
         if ($request->isMethod('POST')) {
 
-            if (Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password])
-            ||  Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password])
+            if (Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password])||
+                Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password])
+            )
+            {
 
-            ) {
                 return redirect()->route('/');
             } else {
                 return redirect()->route('login')->with('error', 'Mật Khẩu và tài khoản không chính xác!!!');
@@ -158,7 +159,7 @@ class LoginController extends Controller
 
         try {
             $user = Socialite::driver('google')->stateless()->user();
-            $resultUser = User::where('email', $user->getEmail())->first();
+            $resultUser = User::where('google_id', $user->id)->first();
 
             if($resultUser){
                 $resultUser->update(['name' => $user->name]);
@@ -166,14 +167,11 @@ class LoginController extends Controller
                 return redirect('/');
             }else{
                 $user = User::create([
+                    'google_id'=> $user->id,
                     'name' =>$user->name,
-                    'sdt'=>'0932423423',
-                    'diachi'=>'badu',
-                    'role'=>'0',
                     'password'=> bcrypt($user->getEmail()),
                     'email' => $user->getEmail(),
-                    'email_verified'=> $user->user['email_verified'],
-                    'remember_token' => $user->token,
+
                 ]);
             }
             Auth::login($user);
